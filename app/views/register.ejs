@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="POST">
+        <input type="text" name="name" placeholder="Enter name" id="name">
+        <br>
+        <input type="email" name="email" placeholder="Enter email" id="email">
+        <br>
+        <input type="password" name="password" placeholder="Enter password" id="password">
+        <br>
+        <input type="text" name="code" placeholder="Enter verification code">
+        <button type="button" onclick="getVerificationCode()">Get Code</button>
+        <br>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        async function getVerificationCode()
+        {
+            const email = document.getElementById('email').value;
+            if(email == '')
+            {
+                alert('Please enter email');
+                return;
+            }
+
+            fetch('/get-code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email: email})
+            }).then(res => res.json());
+        }
+
+    </script>
+</body>
+</html>
